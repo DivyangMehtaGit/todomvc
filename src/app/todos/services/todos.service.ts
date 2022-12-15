@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { FilterEnum } from '../types/filter.enum';
 import { TodoInterface } from '../types/todo.interface';
 
 @Injectable({
@@ -7,7 +8,7 @@ import { TodoInterface } from '../types/todo.interface';
 })
 export class TodosService {
   todos$ = new BehaviorSubject<TodoInterface[]>([]);
-  // filter$ = new BehaviorSubject<FilterEnum>(FilterEnum.all);
+  filter$ = new BehaviorSubject<FilterEnum>(FilterEnum.all);
 
   addTodo(text: string): void {
     const newTodo: TodoInterface = {
@@ -30,9 +31,9 @@ export class TodosService {
     this.todos$.next(updatedTodos);
   }
 
-  // changeFilter(filterName: FilterEnum): void {
-  //   this.filter$.next(filterName);
-  // }
+  changeFilter(filterName: FilterEnum): void {
+    this.filter$.next(filterName);
+  }
 
   changeTodo(id: string, text: string): void {
     const updatedTodos = this.todos$.getValue().map((todo) => {
